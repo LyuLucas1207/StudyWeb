@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="stack">
+    <div class="card">
+      <img src="./images/1.jpg" alt="" />
+    </div>
+    <div class="card">
+      <img src="./images/2.jpg" alt="" />
+    </div>
+    <div class="card">
+      <img src="./images/3.jpg" alt="" />
+    </div>
+    <div class="card">
+      <img src="./images/4.jpg" alt="" />
+    </div>
+    <div class="card">
+      <img src="./images/5.jpg" alt="" />
+    </div>
+    <div class="card">
+      <img src="./images/6.jpg" alt="" />
+    </div>
+  </div>
+
+  <script>
+    // 获取堆栈容器
+    const stack = document.querySelector(".stack");
+    // 获取所有卡片元素并反转顺序
+    const cards = Array.from(stack.children)
+      .reverse()
+      .filter((child) => child.classList.contains("card"));
+
+    // 将所有卡片重新附加到堆栈容器中
+    cards.forEach((card) => stack.appendChild(card));
+
+    // 定义移动卡片的函数
+    function moveCard() {
+      const lastCard = stack.lastElementChild;
+      if (lastCard.classList.contains("card")) {
+        lastCard.classList.add("swap");
+
+        setTimeout(() => {
+          lastCard.classList.remove("swap");
+          stack.insertBefore(lastCard, stack.firstElementChild);
+        }, 1200);
+      }
+    }
+
+    // 设置自动播放
+    setInterval(moveCard, 4000);
+
+    // 添加点击事件监听器
+    stack.addEventListener("click", function (e) {
+      const card = e.target.closest(".card");
+      if (card && card === stack.lastElementChild) {
+        card.classList.add("swap");
+
+        setTimeout(() => {
+          card.classList.remove("swap");
+          stack.insertBefore(card, stack.firstElementChild);
+        }, 1200);
+      }
+    });    
+  </script>
+</body>
+
+</html>
